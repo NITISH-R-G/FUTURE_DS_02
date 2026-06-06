@@ -1,4 +1,10 @@
 {
-  "nodes": [],
+  "nodes": [
+    {
+      "id": "README.md",
+      "label": "README.md",
+      "type": "markdown"
+    }
+  ],
   "edges": []
 }

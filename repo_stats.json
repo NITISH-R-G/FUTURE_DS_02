@@ -1,6 +1,10 @@
 {
-  "files_count": 0,
-  "languages": {},
-  "total_lines": 0,
-  "components": []
+  "files_count": 1,
+  "languages": {
+    "Markdown": 1
+  },
+  "total_lines": 90,
+  "components": [
+    "README.md"
+  ]
 }
