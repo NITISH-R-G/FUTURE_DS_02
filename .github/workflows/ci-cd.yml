@@ -1,0 +1,42 @@
+name: CI/CD Pipeline
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f scripts/requirements.txt ]; then
+            pip install -r scripts/requirements.txt
+          fi
+
+      - name: Run Linting (flake8)
+        run: |
+          flake8 scripts/ --count --select=E9,F63,F7,F82 --show-source --statistics || true
+
+      - name: Run Security Scan (bandit)
+        run: |
+          bandit -r scripts/ || true
+
+      - name: Run Dependency Audit
+        run: |
+          pip-audit || true
+
+      - name: Run Tests (pytest)
+        run: |
+          # Currently no tests, so we just run pytest if test files exist, ignoring exit 5 (no tests collected)
+          pytest || [ $? -eq 5 ]

@@ -1,0 +1,8 @@
+requests
+openai
+networkx
+pyyaml
+pytest
+flake8
+bandit
+pip-audit
